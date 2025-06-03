@@ -1,0 +1,33 @@
+version: "3.8"
+services:
+  app:
+    image: node:16-alpine
+    container_name: app
+    ports:
+      - 3000:3000
+    working_dir: /usr/src/app
+    environment:
+      - NODE_ENV=development
+      - REDIS_URL=redis://redis:6379
+      - DATABASE_URL=postgresql://postgres:postgres123@postgres:5432/myapp
+    depends_on:
+      - redis
+      - postgres
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+
+  postgres:
+    image: postgres:13
+    container_name: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=myapp
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres123
+
+volumes:
+  postgres_data:
+    driver: local

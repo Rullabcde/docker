@@ -1,0 +1,32 @@
+version: "3.8"
+services:
+  web:
+    image: python:3.1-slim
+    container_name: flask-postgresql
+    volumes:
+      - ./app:/app
+    working_dir: /app
+    command: sh -c "pip install -r requirements.txt && flask run --host=0.0.0.0 --port=5000"
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_ENV=development
+    depends_on:
+      - db
+  db:
+    image: postgres:13
+    container_name: flask-postgresql-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: mahasiswa
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init-db/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:
+    driver: local
