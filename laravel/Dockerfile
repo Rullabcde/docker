@@ -1,7 +1,7 @@
 FROM php:8.2-fpm
 
-ARG user=rullabcd
-ARG uid=1000
+ARG user
+ARG uid
 
 RUN apt-get update && apt-get install -y \
     git \

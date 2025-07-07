@@ -3,11 +3,11 @@ services:
   app:
     build:
       context: .
-      dockerfile: docker/php/Dockerfile
+      dockerfile: .docker/php/Dockerfile
     container_name: laravel_app
     restart: unless-stopped
     volumes:
-      - .:/var/www/html
+      - .:/var/www
     networks:
       - laravel
 
@@ -16,10 +16,10 @@ services:
     container_name: laravel_nginx
     restart: unless-stopped
     ports:
-      - "80:80"
+      - "8000:80"
     volumes:
-      - .:/var/www/html
-      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - .:/var/www
+      - ./.docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - app
     networks:
@@ -35,7 +35,7 @@ services:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_USER: ${DB_USERNAME}
       MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}_root"
+      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
     volumes:
       - db_data:/var/lib/mysql
     networks:
