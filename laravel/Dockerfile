@@ -1,4 +1,4 @@
-FROM php:8.2-fpm
+FROM php:8.0-fpm
 
 ARG user=rullabcd
 ARG uid=1000
