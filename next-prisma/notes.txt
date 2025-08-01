@@ -1,0 +1,1 @@
+docker compose run --rm command-runner pnpm prisma migrate deploy
