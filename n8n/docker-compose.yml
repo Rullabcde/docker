@@ -20,6 +20,14 @@ services:
       - N8N_METRICS=true
     volumes:
       - n8n-data:/home/node/.n8n
+    networks:
+      - n8n-net
 
 volumes:
   n8n-data:
+    driver: local
+    name: n8n-data
+networks:
+  n8n-net:
+    driver: bridge
+    name: n8n-net

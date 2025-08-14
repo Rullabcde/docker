@@ -35,8 +35,16 @@ services:
 
 networks:
   monitoring:
+    driver: bridge
+    name: monitoring
 
 volumes:
   grafana-data:
+    driver: local
+    name: grafana-data
   loki-data:
+    driver: local
+    name: loki-data
   promtail-positions:
+    driver: local
+    name: promtail-positions

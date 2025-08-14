@@ -43,7 +43,9 @@ services:
 networks:
   laravel:
     driver: bridge
+    name: laravel
 
 volumes:
   db_data:
     driver: local
+    name: db_data
